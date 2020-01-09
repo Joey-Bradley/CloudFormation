@@ -1,2 +1,2 @@
 # CloudFormation
-AWS Cloudformation YAML &amp; JSON templates to build infrastructure as code
+AWS Cloudformation YAML and JSON templates to build infrastructure as code
