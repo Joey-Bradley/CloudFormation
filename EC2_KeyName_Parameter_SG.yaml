@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: KeyName Parameter Demo
+
+Parameters:
+  MyKeyName:
+    Description: Select the key from the list
+    Type: 'AWS::EC2::KeyPair::KeyName'
+  MyAvailabilityZone:
+    Description: Select The Availabilty Zone
+    Type: String
+    Default: us-east-1a
+    AllowedValues:
+      - us-east-1a
+      - us-east-1b
+      - us-east-1c
+  MyInstanceType:
+    Description: Select The Instance Type from the list
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - t2.small
+      - t2.nano
+Resources:
+  DevEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      ImageId: ami-00068cd7555f543d5
+      InstanceType: !Ref MyInstanceType
+      KeyName: !Ref MyKeyName
+      SecurityGroups:
+        - default
+        - !Ref SSHSecurityGroup
+      AvailabilityZone: !Ref MyAvailabilityZone
+  SSHSecurityGroup:
+    Type: 'AWS::EC2::SecurityGroup'
+    Properties:
+      GroupDescription: My new SSH Security Group
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
